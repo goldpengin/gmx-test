@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 description: GMX
 repository: https://github.com/gmx-io/gmx-subgraph
 schema:
@@ -15,7 +15,7 @@ dataSources:
       # startBlock: 8330228
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - ChainlinkPrice
@@ -37,7 +37,7 @@ dataSources:
       # startBlock: 8330228
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - ChainlinkPrice
@@ -59,7 +59,7 @@ dataSources:
       # startBlock: 8330228
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - ChainlinkPrice
@@ -80,7 +80,7 @@ dataSources:
       startBlock: 8231150
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - HourlyGlpStat
@@ -103,7 +103,7 @@ dataSources:
       startBlock: 22742389
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - HourlyGlpStat
@@ -126,7 +126,7 @@ dataSources:
       startBlock: 8353975
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - Order
@@ -165,7 +165,7 @@ dataSources:
       startBlock: 8520800
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - FastPrice
@@ -291,7 +291,7 @@ dataSources:
       startBlock: 8231150
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - TradingStat
@@ -318,7 +318,7 @@ dataSources:
       startBlock: 8231150
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - Swap
