@@ -1,7 +1,8 @@
 import { BigInt } from "@graphprotocol/graph-ts"
 
 import {
-  timestampToDay
+  timestampToDay,
+  timestampToPeriod
 } from "./helpers"
 
 import {
@@ -38,9 +39,10 @@ function _loadOrCreateEntity(id: string, period: string, timestamp: BigInt): Tra
 }
 
 function _updateOpenInterest(timestamp: BigInt, increase: boolean, isLong: boolean, delta: BigInt): void {
-  let dayTimestamp = timestampToDay(timestamp)
+  // let dayTimestamp = timestampToDay(timestamp)
+  let hourTimestamp = timestampToPeriod(timestamp, "hourly")
   let totalId = "total"
-  let totalEntity = _loadOrCreateEntity(totalId, "total", dayTimestamp)
+  let totalEntity = _loadOrCreateEntity(totalId, "total", hourTimestamp)
 
   if (isLong) {
     totalEntity.longOpenInterest = increase ? totalEntity.longOpenInterest + delta : totalEntity.longOpenInterest - delta
@@ -49,8 +51,8 @@ function _updateOpenInterest(timestamp: BigInt, increase: boolean, isLong: boole
   }
   totalEntity.save()
 
-  let id = dayTimestamp.toString()
-  let entity = _loadOrCreateEntity(id, "daily", dayTimestamp)
+  let id = hourTimestamp.toString()
+  let entity = _loadOrCreateEntity(id, "hourly", hourTimestamp)
 
   entity.longOpenInterest = totalEntity.longOpenInterest
   entity.shortOpenInterest = totalEntity.shortOpenInterest
@@ -75,10 +77,11 @@ export function handleClosePosition(event: ClosePosition): void {
 }
 
 function _storePnl(timestamp: BigInt, pnl: BigInt, isLiquidated: boolean): void {
-  let dayTimestamp = timestampToDay(timestamp)
+  // let dayTimestamp = timestampToDay(timestamp)
+  let hourTimestamp = timestampToPeriod(timestamp, "hourly")
 
   let totalId = "total"
-  let totalEntity = _loadOrCreateEntity(totalId, "total", dayTimestamp)
+  let totalEntity = _loadOrCreateEntity(totalId, "total", hourTimestamp)
   if (pnl > ZERO) {
     totalEntity.profit += pnl
     totalEntity.profitCumulative += pnl
@@ -90,11 +93,11 @@ function _storePnl(timestamp: BigInt, pnl: BigInt, isLiquidated: boolean): void 
       totalEntity.liquidatedCollateralCumulative -= pnl
     }
   }
-  totalEntity.timestamp = dayTimestamp.toI32()
+  totalEntity.timestamp = hourTimestamp.toI32()
   totalEntity.save()
 
-  let id = dayTimestamp.toString()
-  let entity = _loadOrCreateEntity(id, "daily", dayTimestamp)
+  let id = hourTimestamp.toString()
+  let entity = _loadOrCreateEntity(id, "hourly", hourTimestamp)
 
   if (pnl > ZERO) {
     entity.profit += pnl
